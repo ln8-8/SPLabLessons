@@ -3,10 +3,11 @@
 #Lyudovikos 4/10/2021
 
 if [ -d $1 ]
-then
+then 
 	echo "$1 is a directory"
-fi
-if [ -f $1 ]
+elif [ -f $1 ]
 then
 	echo "$1 is a regular file"
+else
+	echo "$1 does not exist"
 fi
