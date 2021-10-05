@@ -5,5 +5,5 @@ if [ -f $1 ]
 then
 	wc -l < $1
 else
-	echo "The given argument does not file"
+	echo "The given argument is not file"
 fi
