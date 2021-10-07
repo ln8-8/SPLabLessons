@@ -1,0 +1,3 @@
+/home/lyuuut/SPLABgit/CMake/build/CMakeFiles/rebuild_cache.dir
+/home/lyuuut/SPLABgit/CMake/build/CMakeFiles/output.dir
+/home/lyuuut/SPLABgit/CMake/build/CMakeFiles/edit_cache.dir
