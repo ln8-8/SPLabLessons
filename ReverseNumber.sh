@@ -20,4 +20,8 @@ then
 	ans=$(( $ans * -1 ))
 fi
 
+if [ "$2" != "-t" ]
+then
 echo "$ans"
+fi
+
