@@ -3,7 +3,15 @@
 
 if [ -f $1 ]
 then
-	wc -l < $1
+	output=$( wc -l < $1 )
+	if [ "$2" != "-t" ]
+	then
+	echo $output
+	fi
 else
-	echo "The given argument is not file"
+	output="The given argument is not file"
+	if [ "$2" != "-t" ]
+        then
+	echo $output
+	fi
 fi
