@@ -3,6 +3,14 @@
 
 n=$1
 ans=0
+
+if ! [ "$1" -eq "$1" ] 2> /dev/null
+then
+    echo "Sorry integers only"
+    exit 1
+fi
+
+
 if [ $1 -lt 0 ]
 then
 	n=$(( $n * -1 ))
