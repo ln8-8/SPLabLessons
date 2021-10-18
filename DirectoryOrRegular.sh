@@ -1,6 +1,5 @@
 #!/bin/bash
 #This script report us if given file is regular file or directory
-#Lyudovikos 4/10/2021
 
 a=0;
 

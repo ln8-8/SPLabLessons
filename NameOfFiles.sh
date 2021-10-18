@@ -1,6 +1,5 @@
 #!/bin/bash
 #Print all file names on given folder with subfolders
-#Lyudovikos 4/10/2021
 
 printNames () {
 	for i in $1/*
