@@ -1,7 +1,7 @@
 #include <iostream>
-#include "foo.h"
+#include "printHelloWorld.h"
 using namespace std;
 
-void foo() {
+void printHelloWorld() {
 	cout << "Hello World" << endl;
 }

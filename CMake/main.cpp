@@ -1,6 +1,6 @@
-#include "foo.h"
+#include "printHelloWorld.h"
 
 int main() {
-	foo();
+	printHelloWorld();
 	return 0;
 }

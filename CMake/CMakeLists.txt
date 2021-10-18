@@ -5,4 +5,4 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 project(output VERSION 1.0)
 include_directories(${PROJECT_SOURCE_DIR})
 
-add_executable(output main.cpp foo.cpp)
+add_executable(output main.cpp printHelloWorld.cpp)
