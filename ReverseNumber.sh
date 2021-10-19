@@ -1,8 +1,8 @@
 #!/bin/bash
 #This script prints the given number in reverse order
 
-n=$1
-ans=0
+givenNumber=$1
+reversedNumber=0
 
 if ! [ "$1" -eq "$1" ] 2> /dev/null
 then
@@ -10,26 +10,25 @@ then
     exit 1
 fi
 
-
 if [ $1 -lt 0 ]
 then
-	n=$(( $n * -1 ))
+	givenNumber=$(( $givenNumber * -1 ))
 fi
 
-while [ $n -gt 0 ]
+while [ $givenNumber -gt 0 ]
 do 
-	tmp=$(( $n % 10  ))
-	ans=$(( $ans * 10 + $tmp ))
-	n=$(( $n / 10 ))
+	tmp=$(( $givenNumber % 10  ))
+	reversedNumber=$(( $reversedNumber * 10 + $tmp ))
+	givenNumber=$(( $givenNumber / 10 ))
 done
 
 if [ $1 -lt 0 ]
 then
-	ans=$(( $ans * -1 ))
+	reversedNumber=$(( $reversedNumber * -1 ))
 fi
 
 if [ "$2" != "-t" ]
 then
-echo "$ans"
+echo "$reversedNumber"
 fi
 
