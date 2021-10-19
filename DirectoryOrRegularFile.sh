@@ -1,26 +1,24 @@
 #!/bin/bash
 #This script report us if given file is regular file or directory
 
-a=0;
-
 if [ -d $1 ]
 then
-        a=1
+        outputMessage="$1 is a directory"
 	if [ "$2" != "-t" ]
 	then	
-	echo "$1 is a directory"
+	echo $outputMessage
 	fi
 elif [ -f $1 ]
 then
-	a=2
+	outputMessage="$1 is a regular file"
 	if [ "$2" != "-t" ]
 	then
-	echo "$1 is a regular file"
+	echo $outputMessage
 	fi
 else
-	a=3
+	outputMessage="$1 does not exist"
 	if [ "$2" != "-t" ]
 	then
-	echo "$1 does not exist"
+	echo $outputMessage
 	fi
 fi

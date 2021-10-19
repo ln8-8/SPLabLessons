@@ -1,25 +1,25 @@
 #!/bin/bash
 
 mkdir Dir
-source ../DirectoryOrRegular.sh Dir -t
-if [ "$a" != 1 ]
+source ../DirectoryOrRegularFile.sh Dir -t
+if [ "$outputMessage" != "Dir is a directory" ]
 then
-        echo "fail"
+        echo "fail1"
         exit
 fi
 rm -R Dir
 touch file.txt
-source ../DirectoryOrRegular.sh file.txt -t
-if [ "$a" != 2 ]
+source ../DirectoryOrRegularFile.sh file.txt -t
+if [ "$outputMessage" != "file.txt is a regular file" ]
 then
-        echo "fail"
+        echo "fail2"
         exit
 fi
 rm file.txt
-source ../DirectoryOrRegular.sh nonex -t
-if [ "$a" != 3 ]
+source ../DirectoryOrRegularFile.sh nonex -t
+if [ "$outputMessage" != "nonex does not exist" ]
 then
-        echo "fail"
+        echo "fail3"
         exit
 fi
 echo "success"
