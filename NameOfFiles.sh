@@ -2,14 +2,14 @@
 #Print all file names on given folder with subfolders
 
 printNames () {
-	for i in $1/*
+	for fileFromGivenDirectory in $1/*
 	do
-		if [ -d $i ]
+		if [ -d $fileFromGivenDirectory ]
 		then 
-			echo "$i"
-			printNames $i
+			echo "$fileFromGivenDirectory"
+			printNames $fileFromGivenDirectory
 		else
-			echo "$i"
+			echo "$fileFromGivenDirectory"
 		fi
 	done
 }
