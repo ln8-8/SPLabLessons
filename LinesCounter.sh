@@ -9,9 +9,9 @@ fi
 
 if [ -f $1 ]
 then
-	output=$( wc -l < $1 )
-	echo $output
+	outputMessage=$( wc -l < $1 )
+	echo $outputMessage
 else
-	output="The given argument is not file"
-	echo $output
+	outputMessage="The given argument is not file"
+	echo $outputMessage
 fi
