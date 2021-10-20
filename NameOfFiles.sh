@@ -1,6 +1,12 @@
 #!/bin/bash
 #Print all file names on given folder with subfolders
 
+if [ $# != 1 ]
+then
+        echo "Wrong amount of arguments"
+        exit
+fi
+
 printNames () {
 	for fileFromGivenDirectory in $1/*
 	do
