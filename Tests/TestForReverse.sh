@@ -1,33 +1,34 @@
 #!/bin/bash
 
-source ../ReverseNumber.sh 0 -t
+touch fileForOutputText.txt
+source ../ReverseNumber.sh abc > fileForOutputText.txt
+if [ "$outputMessage" != "Sorry integers only" ]
+then 
+	echo "failed when the given argument isn't an integer"
+	rm fileForOutputText.txt
+	exit
+fi
+source ../ReverseNumber.sh 0 > fileForOutputText.txt
 if [ "$reversedNumber" != 0 ]
 then
-        echo "fail"
+        echo "failed when the given argument is 0"
+	rm fileForOutputText.txt
         exit
 fi
-source ../ReverseNumber.sh 1 -t
-if [ "$reversedNumber" != 1 ]
-then
-        echo "fail"
-        exit
-fi
-source ../ReverseNumber.sh 10 -t
-if [ "$reversedNumber" != 1 ]
-then
-        echo "fail"
-        exit
-fi
-source ../ReverseNumber.sh 1234 -t
+source ../ReverseNumber.sh 1234 > fileForOutputText.txt
 if [ "$reversedNumber" != 4321 ]
 then
-        echo "fail"
+        echo "failed when the given argument is a positive number"
+	rm fileForOutputText.txt
         exit
 fi
-source ../ReverseNumber.sh -23 -t
+source ../ReverseNumber.sh -23 > fileForOutputText.txt
 if [ "$reversedNumber" != -32 ]
 then
-        echo "fail"
+        echo "failed when the given argument is a negative number"
+	rm fileForOutputText.txt
         exit
 fi
+
+rm fileForOutputText.txt
 echo "success"
