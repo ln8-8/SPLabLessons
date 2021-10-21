@@ -4,7 +4,7 @@ argumentForChekingFails=0
 
 touch fileForOutputText.txt
 source ../ReverseNumber.sh abc > fileForOutputText.txt
-if [ "$outputMessage" != "Given argument is not an unsigned integer" ]
+if [ "$outputMessage" != "Given argument is not an integer" ]
 then
         output="failed when the given argument isn't an integer (ReverseNumber.sh)"
 	echo $output
@@ -24,8 +24,8 @@ then
         echo $output
 	argumentForChekingFails=1
 fi
-source ../ReverseNumber.sh -23 > fileForOutputText.txt
-if [ "$outputMessage" != "Given argument is not an unsigned integer" ]
+source ../ReverseNumber.sh -23456789 > fileForOutputText.txt
+if [ "$reversedNumber" != "-98765432" ]
 then
 	output="failed when the given argument is a negative number (ReverseNumber.sh)"
         echo $output
