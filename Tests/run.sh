@@ -1,7 +1,7 @@
 #!/bin/bash
 
-source ./TestForDirOrReg.sh
+./TestForDirOrReg.sh
 
-source ./TestForLinesCount.sh
+./TestForLinesCount.sh
 
-source ./TestForReverse.sh
+./TestForReverse.sh
