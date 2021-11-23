@@ -1,8 +1,13 @@
 #!/bin/bash
 
 argumentForCheckingFails=0
+existingOfMake=0
 
 cd ../
+if [[ -f "./minDist" ]]
+then
+    existingOfMake=1
+fi
 
 make > formake.txt
 
@@ -36,5 +41,10 @@ then
 fi
 
 rm testForCheck.txt
-make clean > formake.txt
+
+if [ "$existingOfMake" == 0 ]
+then
+	make clean > formake.txt
+fi
+
 rm formake.txt

@@ -57,10 +57,13 @@ int main(int argc, char** argv)
     int sourceNode, destinationNode;
     std::ifstream input;
     input.open(argv[1]);
-
+    if(argc == 1){
+	    std::cout << "You have to input a file" << std::endl;
+	    exit(1);
+    }
     if(input.fail())
     {
-        std::cerr << "Something went wrong while opening the file" << std::endl;
+        std::cerr << "There is no such file" << std::endl;
         exit(1);
     }
 
