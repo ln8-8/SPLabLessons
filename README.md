@@ -24,5 +24,25 @@ Dockerfile for creating new docker from ubuntu image, which will run my ReverseN
 
 ## Graph
 
-This directory contains minimumDistance.cpp file, which finds the shortest way between two given nodes and prints it all. The subdirectory TestsForGraph contains three tests with their outputs and one runTests.sh which run all tests.
+This projec finds the shortest way between two given nodes and prints all shortest ways.
 
+##### How to build the project
+
+To build this project go to the directory **SPLabLessons/Graph** and use the command **make**.
+
+##### How to run the project
+
+To run this project give it one file as argument. The first line of the file contains two integers. The first integer is number of nodes and the second integer is number of edges. Each of the next lines includes 3 integers, first 2 of which are nodes, and the third is the weight of the edge connecting them. The last line contains source and destination nodes.
+
+###### Example of input
+
+	4 4
+	1 2 8
+	2 3 7
+	3 4 5
+	2 4 4
+	2 4
+
+##### How to run the tests
+
+To run tests use script **runTests.sh**.
