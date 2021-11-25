@@ -9,7 +9,7 @@ then
     existingOfMake=1
 fi
 
-make > formake.txt
+make > /dev/null
 
 ./minDist ./TestsForGraph/test1.txt > testForCheck.txt
 
@@ -19,32 +19,36 @@ then
 	argumentForCheckingFails=1
 fi
 
-./minDist ./TestsForGraph/test2.txt > testForCheck.txt
+rm testForCheck.txt
 
-if [ "$echo $(cat ./TestsForGraph/test2_output.txt)" != "$echo $(cat testForCheck.txt)" ]
-then
-        echo "Failed when running test2"
-        argumentForCheckingFails=1
-fi
-
-./minDist ./TestsForGraph/test3.txt > testForCheck.txt
-
-if [ "$echo $(cat ./TestsForGraph/test3_output.txt)" != "$echo $(cat testForCheck.txt)" ]
-then
-        echo "Failed when running test3"
-        argumentForCheckingFails=1
-fi
+cd TestsForGraph
+g++ -o forInput testOfCircleGraph.cpp
+g++ -o forAnswer answerOfCircleGraph.cpp
+for ((i=0; i < 100; i++)) {
+	source ./randomNumbersForCircle.sh > /dev/null
+	./forInput $sr $ds > input.txt
+	./forAnswer $sr $ds > answer.txt
+	../minDist input.txt > testToCheck.txt
+	if [ "$echo $(cat answer.txt)" != "$echo $(cat testToCheck.txt)" ]
+	then
+        	echo "Failed when running test of circle"
+		argumentForCheckingFails=1
+	fi
+}
 
 if [ "$argumentForCheckingFails" == 0 ]
 then
 	echo "Success for all tests"
 fi
 
-rm testForCheck.txt
-
+rm input.txt
+rm answer.txt
+rm forInput
+rm forAnswer
+rm testToCheck.txt
 if [ "$existingOfMake" == 0 ]
 then
-	make clean > formake.txt
+	cd ..
+	make clean > /dev/null
+	cd TestsForGraph
 fi
-
-rm formake.txt
