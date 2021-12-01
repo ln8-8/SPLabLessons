@@ -43,7 +43,6 @@ g++ -o forInput testOfMatrixGraph.cpp
 g++ -o forAnswer answerOfMatrixGraph.cpp
 for ((i=0; i < 20; i++)) {
         source ./randomNumberForMatrix.sh > /dev/null
-	echo $SRC $DEST
         ./forInput $SRC $DEST > input.txt
         ./forAnswer $SRC $DEST > answer.txt
         ../minDist input.txt > testToCheck.txt
