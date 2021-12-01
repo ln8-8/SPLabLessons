@@ -3,24 +3,20 @@
 #include <vector>
 #include <limits.h>
 #include <fstream>
+#include <queue>
 #include <cerrno>
 
 void minimumDistanceOfGraph(int source, int destination, 
 		int& best, int& sum, std::vector<int>& used, 
 		std::vector<int>& distance, std::vector<std::vector<int>>& minDist, 
-		std::vector<std::vector<std::pair<int, int>>>& adjacentNodes) {
+		std::vector<std::vector<std::pair<int, int>>>& adjacentNodes,
+		std::vector<int>& minDistForDest) {
     used[source] = 1;
     distance.push_back(source);
-    if (sum <= best) {
-        if (source == destination) {
-            if (sum < best) {
-                minDist.clear();
-                best = sum;
-            }
-            if (sum == best) {
-                minDist.push_back(distance);
-	    }
-        }
+    if(sum + minDistForDest[source] == best) {
+        if (source == destination && sum == best) {
+             minDist.push_back(distance);
+	}
         else {
             for (int i = 0; i < adjacentNodes[source].size(); i++) {
                 int node = adjacentNodes[source][i].first;
@@ -29,7 +25,7 @@ void minimumDistanceOfGraph(int source, int destination,
                     continue;
 		}
                 sum += weight;
-                minimumDistanceOfGraph(node, destination, best, sum, used, distance, minDist, adjacentNodes);
+                minimumDistanceOfGraph(node, destination, best, sum, used, distance, minDist, adjacentNodes,minDistForDest);
                 sum -= weight;
             }
         }
@@ -41,14 +37,50 @@ void minimumDistanceOfGraph(int source, int destination,
 
 std::vector<std::vector<int>> minDistanceUtility(int& source, int& destination, 
 		int& numberOfNodes, int& best, 
-		std::vector<std::vector<std::pair<int, int>>>& adjacentNodes) {
+		std::vector<std::vector<std::pair<int, int>>>& adjacentNodes, 
+		std::vector<int>& minDistsForDest) {
     int sum = 0;
     std::vector<int> used(numberOfNodes + 1);
     std::vector<int> distance;
     std::vector<std::vector<int>> minDist;
-    minimumDistanceOfGraph(source, destination, best, sum, used, distance, minDist, adjacentNodes);
+
+    minimumDistanceOfGraph(source, destination, best, sum, used, distance, minDist, adjacentNodes, minDistsForDest);
     return minDist;
 }
+
+std::vector<int> djikstra(int source, int destination, int numberOfNodes, std::vector<std::vector<std::pair<int, int>>>& adjacentNodes)
+{
+    std::vector<int> used(numberOfNodes + 1), dist(numberOfNodes + 1, -1);
+    std::priority_queue<std::pair<int, int>> q;
+    q.push({ 0,destination });
+    dist[destination] = 0;
+    while (!q.empty())
+    {
+        int node;
+        do
+        {
+            node = q.top().second;
+            q.pop();
+        } while (!q.empty() && used[node]);
+
+        if (used[node])
+            break;
+        used[node] = 1;
+        for (int i = 0; i < adjacentNodes[node].size(); i++)
+        {
+            int to = adjacentNodes[node][i].first;
+            int weight = adjacentNodes[node][i].second;
+            if (dist[to] == -1 || dist[to] > dist[node] + weight)
+            {
+                dist[to] = dist[node] + weight;
+                q.push({ -dist[to], to });
+            }
+        }
+
+    }
+    return dist;
+}
+
 
 void print(std::vector<std::vector<int>> minimumOfDistances, int best) {
     if (minimumOfDistances.size() == 0) {
@@ -67,7 +99,6 @@ void print(std::vector<std::vector<int>> minimumOfDistances, int best) {
 
 int main(int argc, char** argv) {
     int sum = 0;
-    int best = INT_MAX;
     int numberOfNodes, numberOfEdges;
     int sourceNode, destinationNode;
 
@@ -103,7 +134,11 @@ int main(int argc, char** argv) {
     }
 
     input >> sourceNode >> destinationNode;
-    std::vector<std::vector<int>> minimumOfDistances = minDistanceUtility(sourceNode, destinationNode, numberOfNodes, best, adjacentNodes);
+	
+    std::vector<int> minDistsForDest = djikstra(sourceNode, destinationNode, numberOfNodes, adjacentNodes);
+    int best = minDistsForDest[sourceNode];
+
+    std::vector<std::vector<int>> minimumOfDistances = minDistanceUtility(sourceNode, destinationNode, numberOfNodes, best, adjacentNodes, minDistsForDest);
 
     print(minimumOfDistances, best);
 

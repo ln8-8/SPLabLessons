@@ -31,10 +31,29 @@ for ((i=0; i < 100; i++)) {
 	../minDist input.txt > testToCheck.txt
 	if [ "$echo $(cat answer.txt)" != "$echo $(cat testToCheck.txt)" ]
 	then
-        	echo "Failed when running test of circle"
+        	echo "Failed when running test of circle" $sr $ds
 		argumentForCheckingFails=1
 	fi
 }
+
+rm forInput
+rm forAnswer
+
+g++ -o forInput testOfMatrixGraph.cpp
+g++ -o forAnswer answerOfMatrixGraph.cpp
+for ((i=0; i < 20; i++)) {
+        source ./randomNumberForMatrix.sh > /dev/null
+	echo $SRC $DEST
+        ./forInput $SRC $DEST > input.txt
+        ./forAnswer $SRC $DEST > answer.txt
+        ../minDist input.txt > testToCheck.txt
+        if [ "$echo $(cat answer.txt)" != "$echo $(cat testToCheck.txt)" ]
+        then
+                echo "Failed when running test of matrix for numbers " $SRC $DEST
+                argumentForCheckingFails=1
+        fi
+}
+
 
 if [ "$argumentForCheckingFails" == 0 ]
 then
