@@ -1,19 +1,24 @@
 #!/bin/bash
 
+CurDir=$(dirname $(readlink -f $0))
+TestDir=$CurDir/TestsForGraph
 argumentForCheckingFails=0
 existingOfMake=0
 
-cd ../
-if [[ -f "./minDist" ]]
+cd $TestDir
+make > /dev/null
+cd $CurDir
+
+if [[ -f "$CurDir/minDist" ]]
 then
     existingOfMake=1
 fi
 
 make > /dev/null
 
-./minDist ./TestsForGraph/test1.txt > testForCheck.txt
+$CurDir/minDist $TestDir/test1.txt > testForCheck.txt
 
-if [ "$echo $(cat ./TestsForGraph/test1_output.txt)" != "$echo $(cat testForCheck.txt)" ]
+if [ "$echo $(cat $TestDir/test1_output.txt)" != "$echo $(cat testForCheck.txt)" ]
 then
 	echo "Failed when running test1"
 	argumentForCheckingFails=1
@@ -21,14 +26,11 @@ fi
 
 rm testForCheck.txt
 
-cd TestsForGraph
-g++ -o forInput testOfCircleGraph.cpp
-g++ -o forAnswer answerOfCircleGraph.cpp
 for ((i=0; i < 100; i++)) {
-	source ./randomNumbersForCircle.sh > /dev/null
-	./forInput $sr $ds > input.txt
-	./forAnswer $sr $ds > answer.txt
-	../minDist input.txt > testToCheck.txt
+	source $TestDir/randomNumbersForCircle.sh > /dev/null
+	$TestDir/testCircle $sr $ds > input.txt
+	$TestDir/ansCircle $sr $ds > answer.txt
+	$CurDir/minDist input.txt > testToCheck.txt
 	if [ "$echo $(cat answer.txt)" != "$echo $(cat testToCheck.txt)" ]
 	then
         	echo "Failed when running test of circle" $sr $ds
@@ -36,16 +38,11 @@ for ((i=0; i < 100; i++)) {
 	fi
 }
 
-rm forInput
-rm forAnswer
-
-g++ -o forInput testOfMatrixGraph.cpp
-g++ -o forAnswer answerOfMatrixGraph.cpp
 for ((i=0; i < 20; i++)) {
-        source ./randomNumberForMatrix.sh > /dev/null
-        ./forInput $SRC $DEST > input.txt
-        ./forAnswer $SRC $DEST > answer.txt
-        ../minDist input.txt > testToCheck.txt
+        source $TestDir/randomNumberForMatrix.sh > /dev/null
+        $TestDir/testMatrix $SRC $DEST > input.txt
+        $TestDir/ansMatrix $SRC $DEST > answer.txt
+        $CurDir/minDist input.txt > testToCheck.txt
         if [ "$echo $(cat answer.txt)" != "$echo $(cat testToCheck.txt)" ]
         then
                 echo "Failed when running test of matrix for numbers " $SRC $DEST
@@ -61,12 +58,11 @@ fi
 
 rm input.txt
 rm answer.txt
-rm forInput
-rm forAnswer
+cd $TestDir
+make clean > /dev/null
+cd $CurDir
 rm testToCheck.txt
 if [ "$existingOfMake" == 0 ]
 then
-	cd ..
 	make clean > /dev/null
-	cd TestsForGraph
 fi
