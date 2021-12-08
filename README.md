@@ -45,4 +45,10 @@ To run this project give it one file as argument. The first line of the file con
 
 ##### How to run the tests
 
-To run tests use script **runTests.sh**.
+To run tests do the following:
+
+	1. cd to **Graph/TestsForGraph**
+	2. make
+
+After that run **runTests.sh** which is located in **Graph** directory
+ 

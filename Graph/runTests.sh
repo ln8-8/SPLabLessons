@@ -3,18 +3,6 @@
 CurDir=$(dirname $(readlink -f $0))
 TestDir=$CurDir/TestsForGraph
 argumentForCheckingFails=0
-existingOfMake=0
-
-cd $TestDir
-make > /dev/null
-cd $CurDir
-
-if [[ -f "$CurDir/minDist" ]]
-then
-    existingOfMake=1
-fi
-
-make > /dev/null
 
 $CurDir/minDist $TestDir/test1.txt > testForCheck.txt
 
@@ -58,11 +46,4 @@ fi
 
 rm input.txt
 rm answer.txt
-cd $TestDir
-make clean > /dev/null
-cd $CurDir
 rm testToCheck.txt
-if [ "$existingOfMake" == 0 ]
-then
-	make clean > /dev/null
-fi
